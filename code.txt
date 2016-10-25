@@ -1,0 +1,26 @@
+transpose(){
+
+
+
+}
+
+void main{
+
+int N,i,j,k;
+
+double F[N-1][N-1], c[N-1][N-1]=0.0, V[N-1][N-1], U[N-1][N-1], Sigma[N-1][N-1];
+
+
+for (int i=0; i<N; i++){
+for (int j=0;j<N; j++){
+for (int k=0;k<N; k++){
+C[i][j]=C[i][j]+F[k][i]*F[k][j];   //C=transpose(F)*F
+}
+}
+}
+
+// call Jacobi function to get V,
+
+
+
+}
