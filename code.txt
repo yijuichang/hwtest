@@ -4,11 +4,14 @@ transpose(){
 
 }
 
+//head???   
+
+
 void main{
 
 int N,i,j,k;
-
-double F[N-1][N-1], c[N-1][N-1]=0.0, V[N-1][N-1], U[N-1][N-1], Sigma[N-1][N-1];
+N=2;
+double F[N-1][N-1], c[N-1][N-1]=0.0, V[N-1][N-1], U[N-1][N-1], Sigma[N-1],temp,A[N-1][N-1],c,s;
 
 
 for (int i=0; i<N; i++){
@@ -19,8 +22,34 @@ C[i][j]=C[i][j]+F[k][i]*F[k][j];   //C=transpose(F)*F
 }
 }
 
-// call Jacobi function to get V,
+// call Jacobi function to get V[][], sigma_square[] (eigen vector and eigen value)
+if (sigma_square[0] >= sigma_square[1]){
+sigma[0]=sqrt(sigma_square[0]); sigma[1]=sqrt(sigma_square[1]);
+}
+else{
+sigma[0]=sqrt(sigma_square[1]);sigma[1]=sqrt(sigma_square[0]);
+for (int i=0; i<N-1; i++){
+for (int j=0;i<N;i++){
+temp=V[i][j];V[i][j]=V[i+1][j];V[i+1][j]=temp;
+}
+}
+}
 
 
+//get matrix A
+
+
+for (int i=0; i<N; i++){
+for (int j=0;j<N; j++){
+for (int k=0;k<N; k++){
+A[i][j]=A[i][j]+F[i][k]*V[k][j];   //A=F*V
+}
+}
+}  
+
+c=sigma[0]/(A[0][0]+A[1][0]*A[1][0]/A[0][0]);
+s=-c*A[1][0]/A[0][0];
+
+U[0][0]=c;U[1][1]=c;U[0][1]=s;U[1][0]=-s;
 
 }
