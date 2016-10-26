@@ -1,0 +1,81 @@
+#include <stdlib.h>     /* abs */
+#include <algorithm>  //std::max
+#include <math.h>       /* sqrt */
+#include <cmath>        // std::abs
+
+void matrixmultiplication(double A[][], double B[][], double C[][], int N){
+//matrix C=A*B
+
+for(i=0;i<N;i++){
+for(j=0;j<N;j++){
+C[i][j]=0;
+for(k=0;k<N;k++){
+C[i][j]=C[i][j]+A[i][k]*B[k][j];
+}
+}
+}
+
+}
+
+void matrixequality(double A[][], double B[][],int N){
+//A=B
+for(i=0;i<N;i++){
+for(j=0;j<N;j++){
+A[i][j]=B[i][j];
+}
+}
+}
+
+void matrixtranspose(double A[][], int N){
+double B[N-1][N-1];
+for(i=0;i<N;i++){
+for(j=0;j<N;j++){
+B[i][j]=A[j][i];
+}
+}
+matrixequality(A[N-1][N-1],B[N-1][N-1],N);
+}
+
+
+void matrixrotate(double S[][],double R[][],int N, int i, int j, int k){
+
+double temp,temp1,temp2,c,s,Gt[N-1][N-1]={{0.0,0.0,0.0},{0.0,0.0,0.0},{0.0,0.0,0.0}},tempR[N-1][N-1];
+
+temp=S[i][i]+S[j][j];
+temp1=S[j][i]-S[i][j];
+temp2=sqrt(temp*temp+temp1*temp1);
+c=temp/temp2;
+s=temp1/temp2;
+Gt[i][i]=c;Gt[i][j]=-s;Gt[j][i]=s;Gt[j][j]=c;Gt[k][k]=1;
+matrixmultiplication(G[N-1][N-1],S[N-1][N-1],tempS[N-1][N-1],N);
+matrixequality(S[N-1][N-1],tempS[N-1][N-1],N);
+matrixmultiplication(R[N-1][N-1],Gt[N-1][N-1],tempR[N-1][N-1],N);
+matrixequality(R[N-1][N-1],tempR[N-1][N-1]);
+}
+
+void main{
+int i,j,k,N,it=0, max_it=10;
+N=3;
+double F[N-1][N-1], R[N-1][N-1]={{1.0,0.0,0.0},{0.0,1.0,0.0},{0.0,0.0,1.0}}, S[N-1][N-1],tol=10^-8 ;
+
+// given F
+matrixequality(S[N-1][N-1],F[N-1][N-1],N)
+matrixrotate(S[N-1][N-1], R[N-1][N-1], N, 0,1,2);
+matrixrotate(S[N-1][N-1], R[N-1][N-1], N, 0,2,1);
+matrixrotate(S[N-1][N-1], R[N-1][N-1], N, 1,2,0);
+while (it<max_it||max(abs(S[1][0]-S[0][1]),abs(S[2][0]-S[0][2]),abs(S[2][1]-S[1][2]))>tol){
+
+???????
+
+}
+
+
+
+}
+
+
+
+//S[j][i]=(S[i][i]*S[i][j]+S[j][j]*S[j][i])/temp2;
+//S[i][j]=S[j][i];
+//S[i][i]=(S[i][i]*S[i][i]+S[i][i]*S[j][j]-S[i][j]*S[j][i]+S[j][i]*S[j][i])/temp2;
+//S[j][j]=(S[j][j]*S[j][j]+S[i][i]*S[j][j]-S[i][j]*S[j][i]+S[i][j]*S[i][j])/temp2;
