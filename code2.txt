@@ -59,8 +59,7 @@ void matrixequality(double A[3][3], double B[3][3], const int N) {
 }
 
 void matrixtranspose(double A[3][3], const int N) {
-	int i, j, k;
-	
+	int i, j, k;	
 	double B[3][3];
 	for (i = 0; i<N; i++) {
 		for (j = 0; j<N; j++) {
@@ -72,9 +71,7 @@ void matrixtranspose(double A[3][3], const int N) {
 
 
 void matrixrotate(double S[3][3], double R[3][3],const int N, int i, int j, int k) {
-
 	double temp, temp1, temp2, c, s, G[3][3] = { { 0.0, 0.0, 0.0 },{ 0.0,0.0, 0.0 },{ 0.0,0.0,0.0 } }, tempR[3][3],tempS[3][3];
-
 	temp = S[i][i] + S[j][j];
 	temp1 = S[j][i] - S[i][j];
 	temp2 = sqrt(temp*temp + temp1*temp1);
@@ -87,41 +84,22 @@ void matrixrotate(double S[3][3], double R[3][3],const int N, int i, int j, int 
 	matrixtranspose(G,N);
 	matrixmultiplication(R, G, tempR, N);
 	matrixequality(R, tempR,N);
-
 }
 
-void main(){
-	int i,j,k,N,it = 0, max_it = 10;
-N = 3;
-double F[3][3]= { { 1,2,3 },{ 4,3,2 } ,{ 3,4,5 } }, R[3][3] = { { 1.0,0.0,0.0 },{ 0.0,1.0,0.0 },{ 0.0,0.0,1.0 } }, S[3][3], tol = 0.0000001;
-
-// given F
-
+void My_Polar( double F[3][3], double R[3][3], double S[3][3]){
+	int i,j,k,N=3,it = 0, max_it = 50;
+double  R[3][3] = { { 1.0,0.0,0.0 },{ 0.0,1.0,0.0 },{ 0.0,0.0,1.0 } }, S[3][3], tol = 0.0000001;
 matrixequality(S, F, N);
-
 while (it<max_it || max(max(abs(S[1][0] - S[0][1]), abs(S[2][0] - S[0][2])), abs(S[2][1] - S[1][2]))>tol) {
 	matrixrotate(S, R, N, 0, 1, 2);
 	matrixrotate(S, R, N, 0, 2, 1);
 	matrixrotate(S, R, N, 1, 2, 0);
-	it=it+1;
-	printf("\n %d %.9f %.9f ", it, max(max(abs(S[1][0] - S[0][1]), abs(S[2][0] - S[0][2])), abs(S[2][1] - S[1][2])),tol);
+	it=it+1;	
 }
-matrixmultiplication(R, S, F, N);
+}
 
-printf("\n %f   %f    %f ", S[0][0],S[0][1],S[0][2]);
-printf("\n %f   %f    %f ", S[1][0], S[1][1], S[1][2]);
-printf("\n %f   %f    %f ", S[2][0], S[2][1], S[2][2]);
-printf("\n\n");
-printf("\n %f   %f    %f ", R[0][0], R[0][1], R[0][2]);
-printf("\n %f   %f    %f ", R[1][0], R[1][1], R[1][2]);
-printf("\n %f   %f    %f ", R[2][0], R[2][1], R[2][2]);
-printf("\n %f\n", det(R) );
-printf("\n %f   %f    %f ", F[0][0], F[0][1], F[0][2]);
-printf("\n %f   %f    %f ", F[1][0], F[1][1], F[1][2]);
-printf("\n %f   %f    %f ", F[2][0], F[2][1], F[2][2]);
-printf("\n\n");
+void main() {
 
-//system("pause");
-
+	double F[3][3] = { { 1,2,3 },{ 4,3,2 } ,{ 3,4,5 } };
 
 }
